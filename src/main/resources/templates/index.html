@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="~{fragments/layout}">
+<head>
+    <title>Główna</title>
+</head>
+<body>
+<div layout:fragment="content" th:remove="tag">
+    <h1>Witam na stronie Dziennika Dyspozytora Głównego i Koordynatora Medycznego</h1>
+    <p></p>
+    <ul>
+        <li>Przejdź do <a href="/user" th:href="@{/user}">strony dyspozytora</a></li>
+        <li>Przejdź do <a href="/user" th:href="@{/user}">strony koordynatora medycznego</a></li>
+        <li>Przejdź do <a href="/user" th:href="@{/admin}">administratora</a></li>
+    </ul>
+</div>
+</body>
+</html>

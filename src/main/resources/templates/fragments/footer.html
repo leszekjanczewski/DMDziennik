@@ -1,0 +1,25 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<body>
+<th:block th:fragment="footer">
+    <footer>
+        <div class="container">
+            <p>
+                &copy; WBiZK Oddział Zarządzania PRM |
+                <span sec:authorize="isAuthenticated()" style="display: inline-block;">
+                    Zalogowany użytkownik: <span sec:authentication="principal.getUsername()">nie zalogowany</span> |
+                    Uprawnienia: <span sec:authentication="principal.getAuthorities()">nie zalogowany</span> |
+                    <a th:href="@{/logout}">Wyloguj się</a>
+                </span>
+            </p>
+        </div>
+    </footer>
+
+    <script th:src="@{/js/jquery-3.3.1.slim.min.js}"></script>
+    <script th:src="@{/js/popper.min.js}"></script>
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+
+</th:block>
+</body>
+</html>

@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="~{fragments/layout}">
+<head>
+    <title>Administrator</title>
+</head>
+<body>
+<div layout:fragment="content" th:remove="tag">
+    <h1>Strona Administratora!</h1>
+    <p><a href="/" th:href="@{/}">Powrót do głównej strony</a></p>
+</div>
+</body>
+</html>

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      layout:decorate="~{fragments/layout}">
+<head>
+    <title>Dodaj użytkownika</title>
+</head>
+<body>
+<div layout:fragment="content" th:remove="tag">
+    <form th:action="@{/admin/addUser}" th:object="${user}" method="post">
+        <p>Imię: <input type="text" th:field="*{firstName}"/> </p>
+        <p>Nazwisko: <input type="text" th:field="*{lastName}"/> </p>
+        <p>Login: <input type="text" th:field="*{login}"/> </p>
+        <p>Hasło: <input type="password" th:field="*{password}"> </p>
+        <select multiple="multiple" name="role" id="role" th:field="*{roles}">
+            <option th:each="role : ${roles}" th:value="${role.getId()}" th:text="${role.getName()}"></option>
+        </select>
+        <p><input type="submit" value="Submit"></p>
+    </form>
+</div>
+</body>
+</html>

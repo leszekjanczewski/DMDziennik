@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      layout:decorate="~{fragments/layout}">
+<head>
+    <title>Dodaj użytkownika</title>
+</head>
+<body>
+    <div layout:fragment="content" th:remove="tag">
+        <form th:action="@{/admin/addUser}" th:object="${user}" method="post">
+            <p>Imię: <input type="text" th:field="*{firstName}"/> </p>
+            <p><input type="submit" value="Submit"></p>
+        </form>
+    </div>
+</body>
+</html>

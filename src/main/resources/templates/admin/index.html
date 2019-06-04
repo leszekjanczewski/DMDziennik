@@ -1,14 +1,17 @@
 <!DOCTYPE html>
 <html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       layout:decorate="~{fragments/layout}">
 <head>
     <title>Administrator</title>
 </head>
 <body>
 <div layout:fragment="content" th:remove="tag">
-    <h1>Strona Administratora!</h1>
+    <h1>Strona Administratora! Witaj <span th:object="${user}" th:text="${user.firstName}"></span> <span th:object="${user}" th:text="${user.lastName}"></span></h1>
     <p><a href="/" th:href="@{/}">Powrót do głównej strony</a></p>
+    <h2 sec:authentication="name">h2</h2>
+    <h2 th:object="${user}" th:text="${user.lastName}">h2</h2>
 </div>
 </body>
 </html>

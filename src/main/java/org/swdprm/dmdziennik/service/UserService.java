@@ -33,8 +33,8 @@ public class UserService {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setEnabled(true);
         user.setShift(false);
-        Role userRole = roleRepository.findByName("ADMIN");
-        user.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
+//        Role userRole = roleRepository.findByName("ADMIN");
+//        user.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
         return userRepository.save(user);
     }
 }

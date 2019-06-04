@@ -1,5 +1,6 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <body>
 <th:block th:fragment="header">
     <nav class="navbar navbar-inverse navbar-static-top">
@@ -14,10 +15,10 @@
                     <li class="active">
                         <a th:href="@{/}">Strona główna</a>
                     </li>
+                    <li class="nav-item" sec:authorize="hasRole('ROLE_ADMIN')"><a th:href="@{/admin/addUser}">Dodaj użytkownika</a> </li>
+                    <li class="nav-item" sec:authorize="hasRole('ROLE_ADMIN')"><a th:href="@{/admin/addRole}">Dodaj rolę</a> </li>
                 </ul>
-            </div>
-            <div th:text="${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}" th:remove="tag">
-
+                <span class="navbar-text" th:text="${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}">data</span>
             </div>
         </div>
     </nav>

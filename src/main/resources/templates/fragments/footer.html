@@ -8,7 +8,9 @@
             <p>
                 &copy; WBiZK Oddział Zarządzania PRM
                 <span sec:authorize="isAuthenticated()" style="display: inline-block;"> |
-                    Zalogowany użytkownik: <span sec:authentication="name">login</span> |
+                    Zalogowany użytkownik:
+                    <!--/*@thymesVar id="user" type="org.swdprm.dmdziennik.model.User"*/-->
+                    <span sec:authentication="name">login</span> |
                     Uprawnienia: <span sec:authentication="principal.authorities">uprawnienia</span> |
                     <a th:href="@{/logout}">Wyloguj się</a>
                 </span>

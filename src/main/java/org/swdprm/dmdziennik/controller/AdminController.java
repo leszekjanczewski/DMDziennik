@@ -12,6 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.swdprm.dmdziennik.model.Role;
 import org.swdprm.dmdziennik.model.User;
 import org.swdprm.dmdziennik.repository.RoleRepository;
+import org.swdprm.dmdziennik.service.RoleService;
 import org.swdprm.dmdziennik.service.UserService;
 
 import java.util.List;
@@ -22,6 +23,9 @@ public class AdminController {
 
     @Autowired
     UserService userService;
+
+    @Autowired
+    RoleService roleService;
 
     @Autowired
     RoleRepository roleRepository;
@@ -53,6 +57,22 @@ public class AdminController {
     public ModelAndView saveAddUser(@ModelAttribute User user, ModelAndView modelAndView) {
         userService.saveUser(user);
         modelAndView.setViewName("admin/index");
+        return modelAndView;
+    }
+
+    @GetMapping("/admin/addRole")
+    public ModelAndView addRoleForm() {
+        ModelAndView modelAndView = new ModelAndView();
+        Role role = new Role();
+        modelAndView.addObject("role", role);
+        modelAndView.setViewName("admin/addRole");
+        return modelAndView;
+    }
+
+    @PostMapping("/admin/addRole")
+    public ModelAndView saveRole(@ModelAttribute Role role, ModelAndView modelAndView) {
+        roleService.saveRole(role);
+        modelAndView.setViewName("index");
         return modelAndView;
     }
 }

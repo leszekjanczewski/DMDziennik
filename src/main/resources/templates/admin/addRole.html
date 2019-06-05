@@ -4,13 +4,17 @@
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       layout:decorate="~{fragments/layout}">
 <head>
-    <title>Dodaj użytkownika</title>
+    <title>Dodaj Rolę</title>
 </head>
 <body>
     <div layout:fragment="content" th:remove="tag">
-        <form th:action="@{/admin/addUser}" th:object="${user}" method="post">
-            <p>Imię: <input type="text" th:field="*{firstName}"/> </p>
-            <p><input type="submit" value="Submit"></p>
+        <form th:action="@{/admin/addRole}" th:object="${role}" method="post">
+            <div class="form-group">
+                <label for="roleName">Podaje nazwę roli</label>
+                <input type="text" class="form-control" id="roleName" aria-describedby="roleNameHelp" placeholder="Nazwa roli" th:field="*{name}"/>
+                <small id="firstNameHelp" class="form-text text-muted">Nazwa roli bez przedrostka ROLE_, tylko sama nazwa np: USER, TEST itp.</small>
+            </div>
+            <button type="submit" class="btn btn-primary">Zapisz</button>
         </form>
     </div>
 </body>

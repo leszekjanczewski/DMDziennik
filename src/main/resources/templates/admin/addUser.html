@@ -9,14 +9,38 @@
 <body>
 <div layout:fragment="content" th:remove="tag">
     <form th:action="@{/admin/addUser}" th:object="${user}" method="post">
-        <p>Imię: <input type="text" th:field="*{firstName}"/> </p>
-        <p>Nazwisko: <input type="text" th:field="*{lastName}"/> </p>
-        <p>Login: <input type="text" th:field="*{login}"/> </p>
-        <p>Hasło: <input type="password" th:field="*{password}"> </p>
-        <select multiple="multiple" name="role" id="role" th:field="*{roles}">
-            <option th:each="role : ${roles}" th:value="${role.getId()}" th:text="${role.getName()}"></option>
-        </select>
-        <p><input type="submit" value="Submit"></p>
+        <div class="form-group">
+            <label for="firstName">Imię</label>
+            <input type="text" class="form-control" id="firstName" aria-describedby="firstNameHelp" placeholder="Imię" th:field="*{firstName}"/>
+            <small id="firstNameHelp" class="form-text text-muted">Imię użytkownika</small>
+        </div>
+        <div class="form-group">
+            <label for="lastName">Nazwisko</label>
+            <input type="text" class="form-control" id="lastName" aria-describedby="lastNameHelp" placeholder="Nazwisko" th:field="*{lastName}"/> </p>
+            <small id="lastNameHelp" class="form-text text-muted">Nazwisko użytkownika</small>
+        </div>
+        <div class="form-group">
+            <label for="login">Login</label>
+            <input type="text" class="form-control" id="login" aria-describedby="loginHelp" placeholder="login" th:field="*{login}"/>
+            <small id="lastNameHelp" class="form-text text-muted">Login użytkownika taki sam jak do SWD PRM - teoretycznie pierwsza litera imienia, kropka i nazwisko bez polskich znaków z małych liter</small>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="password">Hasło</label>
+                <input type="password" class="form-control" id="password" placeholder="Hasło" th:field="*{password}">
+            </div>
+            <div class="form-group col-md-6">
+                <!--<label for="passwordConfirm">Potwierdź hasło</label>-->
+                <!--<input type="password" class="form-control" id="passwordConfirm">-->
+            </div>
+        </div>
+        <div class="form-group col-md-3">
+            <label for="role">Wybierz uprawnienia dla użytkownika</label>
+            <select multiple="multiple" class="form-control" name="role" id="role" th:field="*{roles}">
+                <option th:each="role : ${roles}" th:value="${role.getId()}" th:text="${role.getName()}"></option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Zapisz</button>
     </form>
 </div>
 </body>

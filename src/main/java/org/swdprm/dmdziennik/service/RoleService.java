@@ -16,7 +16,7 @@ public class RoleService {
     }
 
     public Role saveRole(Role role) {
-        role.setName("ROLE_" + role.getName());
+        role.setName("ROLE_" + role.getName().toUpperCase());
         return roleRepository.save(role);
     }
 }

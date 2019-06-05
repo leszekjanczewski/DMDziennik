@@ -5,17 +5,17 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.swdprm.dmdziennik.model.Role;
 import org.swdprm.dmdziennik.model.User;
 import org.swdprm.dmdziennik.repository.RoleRepository;
+import org.swdprm.dmdziennik.repository.UserRepository;
 import org.swdprm.dmdziennik.service.RoleService;
 import org.swdprm.dmdziennik.service.UserService;
 
 import java.util.List;
+import java.util.Optional;
 
 
 @Controller
@@ -25,30 +25,27 @@ public class AdminController {
     UserService userService;
 
     @Autowired
+    UserRepository userRepository;
+
+    @Autowired
     RoleService roleService;
 
     @Autowired
     RoleRepository roleRepository;
 
     @GetMapping("/admin")
-    public ModelAndView root() {
-        ModelAndView modelAndView = new ModelAndView();
+    public ModelAndView root(ModelAndView modelAndView) {
         Authentication principal = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findByUserLogin(principal.getName());
         modelAndView.addObject("user", user);
-        modelAndView.addObject("firstName", user.getFirstName());
-        modelAndView.addObject("lastName", user.getLastName());
         modelAndView.setViewName("admin/index");
         return modelAndView;
     }
 
     @GetMapping("/admin/addUser")
-    public ModelAndView addUserForm() {
-        ModelAndView modelAndView = new ModelAndView();
-        User user = new User();
-        List<Role> roles = roleRepository.findAll();
-        modelAndView.addObject("roles", roles);
-        modelAndView.addObject("user", user);
+    public ModelAndView addUserForm(ModelAndView modelAndView) {
+        modelAndView.addObject("user", new User());
+        modelAndView.addObject("roles", roleRepository.findAll());
         modelAndView.setViewName("admin/addUser");
         return modelAndView;
     }
@@ -70,9 +67,28 @@ public class AdminController {
     }
 
     @PostMapping("/admin/addRole")
-    public ModelAndView saveRole(@ModelAttribute Role role, ModelAndView modelAndView) {
+    public String saveRole(@ModelAttribute Role role, ModelAndView modelAndView) {
         roleService.saveRole(role);
-        modelAndView.setViewName("index");
+        return "redirect:/admin/userList";
+    }
+
+    @GetMapping("/admin/userList")
+    public ModelAndView showAllUser(ModelAndView modelAndView) {
+        modelAndView.addObject("users", userRepository.findAll());
+        modelAndView.setViewName("/admin/userList");
         return modelAndView;
+    }
+
+    @GetMapping("/admin/removeUser/{id}")
+    public String removeUser(@PathVariable Long id) {
+        userRepository.delete(userRepository.findUserById(id));
+        return "redirect:/admin/userList";
+    }
+
+    @GetMapping("/admin/editUser/{id}")
+    public String editUser(@PathVariable Long id, ModelAndView modelAndView) {
+        User user = userRepository.findUserById(id);
+        modelAndView.addObject("user", user);
+        return "redirect:/admin/addUser";
     }
 }

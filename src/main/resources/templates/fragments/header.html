@@ -15,9 +15,13 @@
                     <li class="active">
                         <a th:href="@{/}">Strona główna</a>
                     </li>
+                <!--MENU FOR ADMIN - BEGIN-->
                     <li class="nav-item" sec:authorize="hasRole('ROLE_ADMIN')"><a th:href="@{/admin/addUser}">Dodaj użytkownika</a> </li>
                     <li class="nav-item" sec:authorize="hasRole('ROLE_ADMIN')"><a th:href="@{/admin/addRole}">Dodaj rolę</a> </li>
+                    <li class="nav-item" sec:authorize="hasRole('ROLE_ADMIN')"><a th:href="@{/admin/userList}">Lista użytkowników</a> </li>
+                    <li class="nav-item" sec:authorize="hasRole('ROLE_ADMIN')"><a th:href="@{/admin/roleList}">Lista ról</a></li>
                 </ul>
+                <!--MENU FOR ADMIN - END-->
                 <span class="navbar-text" th:text="${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}">data</span>
             </div>
         </div>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="~{fragments/layout}">
+<head>
+    <title>Lista użytkowników</title>
+</head>
+<body>
+<div layout:fragment="content" th:remove="tag">
+    <table class="table">
+        <thead class="thead-dark">
+        <tr>
+            <th scope="col">Imię</th>
+            <th scope="col">Nazwisko</th>
+            <th scope="col">Login</th>
+            <th scope="col">Konto</th>
+            <th scope="col">Uprawnienia</th>
+            <th scope="col">Akcja</th>
+        </tr>
+        </thead>
+        <tr th:each="userItem : ${users}">
+            <td th:text="${userItem.firstName}"></td>
+            <td th:text="${userItem.lastName}"></td>
+            <td th:text="${userItem.login}"></td>
+            <td th:text="${userItem.enabled} ? 'aktywne' : 'nieaktywne'"></td>
+            <td><span th:each="role : ${userItem.roles}">
+                <p th:text="${role.name}"></p>
+            </span>
+            </td>
+            <td>
+                <a class="btn btn-success btn-xs" th:href="@{'/admin/editUser/'} + ${userItem.id}">MODYFIKUJ</a>
+                <a class="btn btn-danger btn-xs" th:href="@{'/admin/removeUser/'} + ${userItem.id}">USUŃ</a>
+            </td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>

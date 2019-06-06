@@ -7,6 +7,8 @@ import org.swdprm.dmdziennik.model.User;
 import org.swdprm.dmdziennik.repository.RoleRepository;
 import org.swdprm.dmdziennik.repository.UserRepository;
 
+import javax.persistence.EntityManager;
+
 @Service
 public class UserService {
 
@@ -31,4 +33,5 @@ public class UserService {
         user.setShift(false);
         return userRepository.save(user);
     }
+
 }

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      layout:decorate="~{fragments/layout}">
+<head>
+    <title>Edytuj użytkownika</title>
+</head>
+<body>
+<div layout:fragment="content" th:remove="tag">
+    <form th:action="@{/admin/editUser}" th:object="${user}" method="post">
+        <div class="form-group">
+            <label for="firstName">Imię</label>
+            <input type="text" class="form-control" id="firstName" placeholder="Imię" th:field="*{firstName}"/>
+        </div>
+        <div class="form-group">
+            <label for="lastName">Nazwisko</label>
+            <input type="text" class="form-control" id="lastName" placeholder="Nazwisko" th:field="*{lastName}"/> </p>
+        </div>
+        <div class="form-group">
+            <label for="login">Login</label>
+            <input type="text" class="form-control" id="login" placeholder="login" th:field="*{login}"/>
+        </div>
+        <div class="form-group col-md-3">
+            <p><b>Czy zaznaczona zmiana?</b></p>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="shift" id="shiftTrue"
+                       th:value="${user.shift}" th:checked="${user.shift}">
+                <label class="form-check-label" for="shiftTrue">Tak</label>
+                <input class="form-check-input" type="radio" name="shift" id="shiftFalse"
+                       th:value="${user.shift}" th:checked="${!user.shift}">
+                <label class="form-check-label" for="shiftFalse">Nie</label>
+            </div>
+        </div>
+        <div class="form-group col-md-3">
+            <p><b>Czy użytkownik aktywny</b></p>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="enabled" id="enableTrue"
+                       th:value="${user.enabled}" th:checked="${user.enabled}">
+                <label class="form-check-label" for="enableTrue">Tak</label>
+                <input class="form-check-input" type="radio" name="enabled" id="enableFalse"
+                       th:value="${user.enabled}" th:checked="${!user.enabled}">
+                <label class="form-check-label" for="enableFalse">Nie</label>
+            </div>
+        </div>
+        <div class="form-group col-md-7">
+            <label for="userRoles">Wybierz uprawnienia dla użytkownika</label>
+            <select multiple="multiple" class="form-control" name="userRoles" id="userRoles" th:field="*{roles}">
+                <option th:each="role : ${roles}" th:value="${role.getId()}" th:text="${role.getName()}"></option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-success">Zatwierdź</button>
+        <a th:href="@{/admin/userList}" class="btn btn-danger">Anuluj</a>
+    </form>
+</div>
+</body>
+</html>

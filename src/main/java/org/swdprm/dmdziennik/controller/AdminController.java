@@ -5,6 +5,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.swdprm.dmdziennik.model.Role;
@@ -86,9 +87,17 @@ public class AdminController {
     }
 
     @GetMapping("/admin/editUser/{id}")
-    public String editUser(@PathVariable Long id, ModelAndView modelAndView) {
-        User user = userRepository.findUserById(id);
-        modelAndView.addObject("user", user);
-        return "redirect:/admin/addUser";
+    public String editUser(@PathVariable Long id, @ModelAttribute User user, Model model) {
+        user = userRepository.findUserById(id);
+        List<Role> roles = roleRepository.findAll();
+        model.addAttribute("user", user);
+        model.addAttribute("roles", roles);
+        return "/admin/editUser";
+    }
+
+    @PostMapping("/admin/editUser")
+    public String updateUser(@ModelAttribute User user) {
+        //TODO: UPDATE User
+        return "redirec:/admin/userList";
     }
 }
